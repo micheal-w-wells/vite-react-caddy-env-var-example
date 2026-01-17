@@ -2,20 +2,26 @@ Simple example to demo Caddy replacing VITE_ env vars at run time.
 
 Setup:
 
-`nvm use 20
+```
+nvm use 20
 npm install
 brew install caddy
-chmod +x run.sh`
+chmod +x run.sh
+```
 Note that run.sh is just executing Caddy at the path brew installed for me, using the caddyfile in current dir
 
 How to test:
-`npm run build
+```
+npm run build
 export VITE_ExampleEnvVar="whatever"
-./run.sh`
+./run.sh
+```
 Open http://localhost/ in browser, you should see the caddy template string printed to screen.
 Kill Caddy and run the following:
-`export VITE_ExampleEnvVar="whatever"
-./run.sh`
+```
+export VITE_ExampleEnvVar="whatever"
+./run.sh
+```
 Open http://localhost/ in browser, you should see "whatever" printed to screen.
 This shows that caddy did the replacement on the built files.
 
