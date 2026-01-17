@@ -13,7 +13,6 @@ Note that run.sh is just executing Caddy at the path brew installed for me, usin
 How to test:
 ```
 npm run build
-export VITE_ExampleEnvVar="whatever"
 ./run.sh
 ```
 Open http://localhost/ in browser, you should see the caddy template string printed to screen.
