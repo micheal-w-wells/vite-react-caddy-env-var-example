@@ -1,0 +1,48 @@
+{
+    # Global options (optional)
+    # debug
+}
+
+:80 {
+    root * ./dist
+
+    route {
+        # Force ordering (Caddy otherwise reorders directives).
+        #
+        # POC approach:
+        # - Vite production build bakes template token: {{env "VITE_ExampleEnvVar"}} into JS bundle
+        # - Caddy templates middleware replaces it at serve-time using the live env
+        #
+        # IMPORTANT: This changes the JS contents while keeping Vite's hashed filename.
+        # For a POC, we disable caching for assets to avoid stale values.
+        handle /assets/*.js {
+            header Cache-Control "no-store"
+
+            templates {
+                mime application/javascript text/javascript
+            }
+
+            file_server
+        }
+
+        # All other hashed assets (css/svg/etc) served normally
+        handle /assets/* {
+            file_server
+        }
+
+        # SPA fallback for client-side routing (everything else)
+        handle {
+            try_files {path} /index.html
+            file_server
+        }
+    }
+
+    # Optional logging
+    log {
+        output stdout
+        format console
+    }
+
+    # Optional compression
+    encode gzip zstd
+}

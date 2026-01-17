@@ -5,6 +5,7 @@ import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
+  const exampleEnvVar = import.meta.env.VITE_ExampleEnvVar || 'hardcodedFallback'
 
   return (
     <>
@@ -17,6 +18,7 @@ function App() {
         </a>
       </div>
       <h1>Vite + React</h1>
+      <p>ExampleEnvVar: {exampleEnvVar}</p>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
@@ -33,3 +35,4 @@ function App() {
 }
 
 export default App
+
